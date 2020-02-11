@@ -3,9 +3,9 @@ import visa, time
 
 class Tektronix(object):
 
-    def __init__(self):
+    def __init__(self, visa_address="USB::0x0000::0x0000::B000000::INSTR"):
         self.rm = visa.ResourceManager()
-        self.scope = self.rm.open_resource("USB::0x0699::0x0503::B010362::INSTR")
+        self.scope = self.rm.open_resource(visa_address)
         print("Talking to " + str(self.scope.query('*idn?')))
         self.scope.timeout = 10000
 
