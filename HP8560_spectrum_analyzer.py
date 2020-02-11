@@ -2,9 +2,9 @@ import time
 
 class spectrum_analyzer_hp8560(object):
     '''Class deffinition for HP8560A Spectrum Analyzer'''
-    def __init__(self, address=visa_address):
+    def __init__(self, visa_address):
         self.rm = visa.ResourceManager()
-        self.spectrum_analyzer_hp8560 = self.rm.open_resource(address)
+        self.spectrum_analyzer_hp8560 = self.rm.open_resource(visa_address)
         instrument_id = self.spectrum_analyzer_hp8560.query('ID?').encode("utf-8").rstrip()
         print "Communicating with: " + instrument_id
         
@@ -29,7 +29,7 @@ class spectrum_analyzer_hp8560(object):
 
     def set_measurement_range(self, startFreq = None, stopFreq = None, centerFreq=None, 
                                   centerFreqStep = None, span=None, verbose=True):
-        '''Comment'''
+        '''Set measurement frequency range'''
         time.sleep(1)
         if not(startFreq == None):
             self.spectrum_analyzer_hp8560.write('FA '+str(int(startFreq))+'HZ');
